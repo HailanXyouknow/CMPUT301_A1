@@ -1,5 +1,6 @@
 package com.example.hailan.hailan_subbook;
 
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -7,10 +8,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
     private ListView listSubscriptions;
@@ -19,8 +22,11 @@ public class MainActivity extends AppCompatActivity {
     private EditText costOfSubscription;
     private EditText commentOfSubscription;
 
+    DatePickerDialog datePickerDialog;
+
     private ArrayList<Subscription> allSubscriptions;
     private ArrayAdapter<Subscription> adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,18 +38,65 @@ public class MainActivity extends AppCompatActivity {
         costOfSubscription = (EditText) findViewById(R.id.addCost);
         commentOfSubscription = (EditText) findViewById(R.id.addComment);
 
+
         //listSubscriptions = (ListView) findViewById(R.id.listviewID);
         //ArrayAdapter<>
+
+        /**
+         * The following OnClickListener is a spinOff from http://abhiandroid.com/ui/datepicker
+         */
+        dateOfSubscription.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                final Calendar c = Calendar.getInstance();
+                int yearPicked = c.get(Calendar.YEAR);
+                int monthPicked = c.get(Calendar.MONTH);
+                int dayPicked = c.get(Calendar.DAY_OF_MONTH);;
+
+                datePickerDialog = new DatePickerDialog(MainActivity.this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                        String monthString = Integer.toString(month+1);
+                        String dayString = Integer.toString(day);
+                        if (month<10){
+                            monthString = "0" + monthString;
+                        }
+                        if (day<10){
+                            dayString = "0" + dayString;
+                        }
+                        dateOfSubscription.setText(year + "-" + monthString + "-" + dayString);
+                    }
+                }, yearPicked, monthPicked, dayPicked);
+
+                datePickerDialog.show();
+            }
+        });
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 setResult(RESULT_OK);
+                String name = nameOfSubscription.getText().toString();
+                String date = dateOfSubscription.getText().toString();
+                String cost = costOfSubscription.getText().toString();
+                String comment = commentOfSubscription.getText().toString();
 
-                //String text = bodyText.getText().toString();
-                //Tweet newtweet = new NormalTweet(text);
-                //tweetlist.add(newtweet);
-                //adapter.notifyDataSetChanged();
-                //saveInFile();
+                //Subscription newSubscription = new Subscription();
+
+                try {
+                    Double doubleValue = Double.valueOf(cost);
+                } catch (NumberFormatException e) {
+                    costOfSubscription.setText("INVALID INPUT");
+                    return;
+                }
+
+//                try {
+//
+//                } catch () {
+//
+//                }
+
+
 
             }
         });

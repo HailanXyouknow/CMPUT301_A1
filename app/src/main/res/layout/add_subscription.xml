@@ -10,7 +10,7 @@
     <ListView
         android:id="@+id/listView"
         android:layout_width="368dp"
-        android:layout_height="259dp"
+        android:layout_height="56dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
@@ -34,6 +34,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="date"
+        android:focusableInTouchMode="false"
         app:layout_constraintBaseline_toBaselineOf="@+id/datefield"
         app:layout_constraintEnd_toEndOf="@+id/addCost" />
 
@@ -42,7 +43,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="textPersonName"
+        android:inputType="numberDecimal"
         app:layout_constraintBaseline_toBaselineOf="@+id/costfield"
         app:layout_constraintEnd_toEndOf="@+id/addComment" />
 
@@ -63,6 +64,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="24dp"
         android:text="Name"
+        android:textSize="18sp"
         app:layout_constraintEnd_toStartOf="@+id/addName"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/listView"
@@ -71,9 +73,10 @@
     <TextView
         android:id="@+id/datefield"
         android:layout_width="wrap_content"
-        android:layout_height="16dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:text="Date"
+        android:textSize="18sp"
         app:layout_constraintEnd_toStartOf="@+id/addDate"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/namefield"
@@ -86,6 +89,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginTop="24dp"
         android:text="Cost"
+        android:textSize="18sp"
         app:layout_constraintEnd_toStartOf="@+id/addCost"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/datefield"
@@ -94,10 +98,11 @@
     <TextView
         android:id="@+id/commentfield"
         android:layout_width="wrap_content"
-        android:layout_height="19dp"
+        android:layout_height="0dp"
         android:layout_marginEnd="8dp"
         android:layout_marginTop="24dp"
         android:text="Comment"
+        android:textSize="18sp"
         app:layout_constraintEnd_toStartOf="@+id/addComment"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/costfield"
