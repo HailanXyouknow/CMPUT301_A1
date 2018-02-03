@@ -7,10 +7,10 @@ package com.example.hailan.hailan_subbook;
 public class Subscription {
     private String name;
     private String date;
-    private Double monthlyCharge;
+    private String monthlyCharge;
     private String comment;
 
-    public Subscription(String name, String date, Double monthlyCharge, String comment) {
+    public Subscription(String name, String date, String monthlyCharge, String comment) {
         this.name = name;
         this.date = date;
         this.monthlyCharge = monthlyCharge;
@@ -33,11 +33,11 @@ public class Subscription {
         this.date = date;
     }
 
-    public Double getMonthlyCharge() {
+    public String getMonthlyCharge() {
         return monthlyCharge;
     }
 
-    public void setMonthlyCharge(Double monthlyCharge) {
+    public void setMonthlyCharge(String monthlyCharge) {
         this.monthlyCharge = monthlyCharge;
     }
 
@@ -47,5 +47,13 @@ public class Subscription {
 
     public void setComment(String comment) {
         this.comment = comment;
+    }
+
+    @Override
+    public String toString() {
+        return "Subscription: " + name + '\n' +
+                "Date: " + date + '\n' +
+                "Monthly Charge: " + monthlyCharge + '\n' +
+                "Comment: " + comment + '\n';
     }
 }

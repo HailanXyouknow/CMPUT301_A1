@@ -1,6 +1,7 @@
 package com.example.hailan.hailan_subbook;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -12,11 +13,24 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
-    private ListView listSubscriptions;
+    private static final String FILENAME = "newfile.sav";
+    private ListView listOfSubscription;
     private EditText nameOfSubscription;
     private EditText dateOfSubscription;
     private EditText costOfSubscription;
@@ -24,9 +38,9 @@ public class MainActivity extends AppCompatActivity {
 
     DatePickerDialog datePickerDialog;
 
-    private ArrayList<Subscription> allSubscriptions;
-    private ArrayAdapter<Subscription> adapter;
 
+    private ArrayList<Subscription> subscriptionlist;
+    private ArrayAdapter<Subscription> adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,10 +51,8 @@ public class MainActivity extends AppCompatActivity {
         dateOfSubscription = (EditText) findViewById(R.id.addDate);
         costOfSubscription = (EditText) findViewById(R.id.addCost);
         commentOfSubscription = (EditText) findViewById(R.id.addComment);
+        listOfSubscription = (ListView) findViewById(R.id.listView);
 
-
-        //listSubscriptions = (ListView) findViewById(R.id.listviewID);
-        //ArrayAdapter<>
 
         /**
          * The following OnClickListener is a spinOff from http://abhiandroid.com/ui/datepicker
@@ -84,22 +96,28 @@ public class MainActivity extends AppCompatActivity {
                 //Subscription newSubscription = new Subscription();
 
                 try {
-                    Double doubleValue = Double.valueOf(cost);
+                    Double costInDouble = Double.valueOf(cost);
                 } catch (NumberFormatException e) {
-                    costOfSubscription.setText("INVALID INPUT");
+                    costOfSubscription.setHint("INVALID INPUT");
                     return;
                 }
 
-//                try {
-//
-//                } catch () {
-//
-//                }
+                Subscription newSubscription = new Subscription(name, date, cost, comment);
+                subscriptionlist.add(newSubscription);
 
-
-
+                adapter.notifyDataSetChanged();
+                saveInFile();
             }
         });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        loadFromFile();
+        adapter = new ArrayAdapter<Subscription>(this,
+                R.layout.list_item, subscriptionlist);
+        listOfSubscription.setAdapter(adapter);
     }
 
     @Override
@@ -111,5 +129,44 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         return super.onOptionsItemSelected(item);
+    }
+
+    private void loadFromFile() {
+
+        try {
+            FileInputStream fis = openFileInput(FILENAME);
+            BufferedReader in = new BufferedReader(new InputStreamReader(fis));
+
+            Gson gson = new Gson();
+
+            Type listType = new TypeToken<ArrayList<Subscription>>(){}.getType();
+
+            subscriptionlist = gson.fromJson(in, listType);
+
+        } catch (FileNotFoundException e) {
+            subscriptionlist = new ArrayList<Subscription>();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private void saveInFile() {
+        try {
+            FileOutputStream fos = openFileOutput(FILENAME,
+                    Context.MODE_PRIVATE);
+            BufferedWriter out = new BufferedWriter(new OutputStreamWriter(fos));
+
+            Gson gson = new Gson();
+
+            gson.toJson(subscriptionlist, out);
+
+            out.flush();
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

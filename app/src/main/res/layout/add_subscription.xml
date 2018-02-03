@@ -10,10 +10,12 @@
     <ListView
         android:id="@+id/listView"
         android:layout_width="368dp"
-        android:layout_height="56dp"
+        android:layout_height="128dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:scrollIndicators="right|end"
+        android:scrollbars="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,38 +24,42 @@
     <EditText
         android:id="@+id/addName"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="46dp"
         android:ems="10"
         android:inputType="textPersonName"
+        android:maxLength="20"
         app:layout_constraintBaseline_toBaselineOf="@+id/namefield"
         app:layout_constraintEnd_toEndOf="@+id/addDate" />
 
     <EditText
         android:id="@+id/addDate"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="46dp"
         android:ems="10"
-        android:inputType="date"
         android:focusableInTouchMode="false"
+        android:hint="Click to select date"
+        android:inputType="date"
         app:layout_constraintBaseline_toBaselineOf="@+id/datefield"
         app:layout_constraintEnd_toEndOf="@+id/addCost" />
 
     <EditText
         android:id="@+id/addCost"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="46dp"
         android:ems="10"
         android:inputType="numberDecimal"
+        android:textColorHint="#FF0000"
         app:layout_constraintBaseline_toBaselineOf="@+id/costfield"
         app:layout_constraintEnd_toEndOf="@+id/addComment" />
 
     <EditText
         android:id="@+id/addComment"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="46dp"
         android:layout_marginEnd="8dp"
         android:ems="10"
         android:inputType="textPersonName"
+        android:maxLength="30"
         app:layout_constraintBaseline_toBaselineOf="@+id/commentfield"
         app:layout_constraintEnd_toEndOf="parent" />
 
