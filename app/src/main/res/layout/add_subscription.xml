@@ -5,7 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:scrollIndicators="right|end"
-    android:scrollbars="vertical">
+    android:scrollbars="vertical"
+    android:focusableInTouchMode="true"
+    android:focusable="true">
 
     <ListView
         android:id="@+id/listView"
@@ -28,6 +30,7 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:maxLength="20"
+        android:textColorHint="#FF7F7F"
         app:layout_constraintBaseline_toBaselineOf="@+id/namefield"
         app:layout_constraintEnd_toEndOf="@+id/addDate" />
 
@@ -37,8 +40,8 @@
         android:layout_height="46dp"
         android:ems="10"
         android:focusableInTouchMode="false"
-        android:hint="Click to select date"
         android:inputType="date"
+        android:textColorHint="#FF7F7F"
         app:layout_constraintBaseline_toBaselineOf="@+id/datefield"
         app:layout_constraintEnd_toEndOf="@+id/addCost" />
 
@@ -48,7 +51,7 @@
         android:layout_height="46dp"
         android:ems="10"
         android:inputType="numberDecimal"
-        android:textColorHint="#FF0000"
+        android:textColorHint="#FF7F7F"
         app:layout_constraintBaseline_toBaselineOf="@+id/costfield"
         app:layout_constraintEnd_toEndOf="@+id/addComment" />
 
@@ -117,17 +120,29 @@
     <Button
         android:id="@+id/saveButtonID"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:text="Save"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/cancelButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addComment"
-        app:layout_constraintVertical_bias="0.903" />
+        app:layout_constraintTop_toBottomOf="@+id/addComment" />
+
+    <Button
+        android:id="@+id/cancelButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+        android:text="CANCEL"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/saveButtonID"
+        app:layout_constraintTop_toBottomOf="@+id/saveButtonID" />
 
 </android.support.constraint.ConstraintLayout>

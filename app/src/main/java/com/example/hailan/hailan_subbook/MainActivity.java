@@ -4,10 +4,7 @@ import android.app.DatePickerDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -40,10 +37,12 @@ public class MainActivity extends AppCompatActivity {
 
 
     private ArrayList<Subscription> subscriptionlist;
-    private ArrayAdapter<Subscription> adapter;
+    private SubscriptionAdapter adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        /* Initialization of EditText types and save button */
         //setContentView(R.layout.activity_main);
         setContentView(R.layout.add_subscription);
         Button saveButton = (Button) findViewById(R.id.saveButtonID);
@@ -53,6 +52,8 @@ public class MainActivity extends AppCompatActivity {
         commentOfSubscription = (EditText) findViewById(R.id.addComment);
         listOfSubscription = (ListView) findViewById(R.id.listView);
 
+
+        dateOfSubscription.setHint("Click for date entry");
 
         /**
          * The following OnClickListener is a spinOff from http://abhiandroid.com/ui/datepicker
@@ -93,20 +94,45 @@ public class MainActivity extends AppCompatActivity {
                 String cost = costOfSubscription.getText().toString();
                 String comment = commentOfSubscription.getText().toString();
 
-                //Subscription newSubscription = new Subscription();
-
+                /* Check empty string */
+                boolean allFilled = true;
+                if (name.equals("")) {
+                    nameOfSubscription.setHint("**");
+                    allFilled = false;
+                }
+                if (date.equals("")) {
+                    dateOfSubscription.setHint("**");
+                    allFilled = false;
+                }
+                if (cost.equals("")) {
+                    costOfSubscription.setHint("**");
+                    allFilled = false;
+                }
+                if (allFilled == false) {
+                    return;
+                }
+                /* Check validity of cost */
                 try {
                     Double costInDouble = Double.valueOf(cost);
                 } catch (NumberFormatException e) {
-                    costOfSubscription.setHint("INVALID INPUT");
+                    costOfSubscription.setHint("** Invalid");
                     return;
                 }
+
 
                 Subscription newSubscription = new Subscription(name, date, cost, comment);
                 subscriptionlist.add(newSubscription);
 
                 adapter.notifyDataSetChanged();
                 saveInFile();
+
+                nameOfSubscription.setText("");
+                dateOfSubscription.setText("");
+                dateOfSubscription.setHint("Click for date entry");
+                costOfSubscription.setText("");
+                commentOfSubscription.setText("");
+
+                finish();
             }
         });
     }
@@ -115,22 +141,16 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         loadFromFile();
-        adapter = new ArrayAdapter<Subscription>(this,
-                R.layout.list_item, subscriptionlist);
+
+        adapter = new SubscriptionAdapter(this, R.layout.list_subformat, subscriptionlist);
         listOfSubscription.setAdapter(adapter);
+
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.choices_menu,menu);
-        return true;
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        return super.onOptionsItemSelected(item);
-    }
-
+    /**
+     *  loadFromFile and saveInFile methods are from the lab tutorial - LonelyTwitterActivity
+     */
     private void loadFromFile() {
 
         try {
