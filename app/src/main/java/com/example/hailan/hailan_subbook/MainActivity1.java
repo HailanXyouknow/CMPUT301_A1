@@ -1,10 +1,13 @@
 package com.example.hailan.hailan_subbook;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -49,6 +52,50 @@ public class MainActivity1 extends AppCompatActivity {
             }
         });
 
+        /**
+         * Following method is a revision of https://stackoverflow.com/a/5344958
+         */
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                AlertDialog.Builder alert = new AlertDialog.Builder(MainActivity1.this);
+                alert.setTitle("DELETE");
+                alert.setMessage("Are you sure you want to permanently delete this subscription?");
+                final int position = i;
+                alert.setNegativeButton("CANCEL",null);
+                alert.setPositiveButton("OK", new AlertDialog.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which){
+                        subscriptionlist.remove(position);
+                        adapter.notifyDataSetChanged();
+                        saveInFile();
+                        calculateCost();
+                    }
+                });
+                alert.show();
+                return false;
+            }
+        });
+
+
+//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//                AlertDialog.Builder alert = new AlertDialog.Builder(MainActivity1.this);
+//                alert.setTitle("DELETE");
+//                alert.setMessage("Are you sure you want to delete this subscription?");
+//                final int position = i;
+//                alert.setNegativeButton("CANCEL",null);
+//                alert.setPositiveButton("OK", new AlertDialog.OnClickListener() {
+//                    public void onClick(DialogInterface dialog, int which){
+//                        subscriptionlist.remove(position);
+//                        adapter.notifyDataSetChanged();
+//                        saveInFile();
+//                        calculateCost();
+//                    }
+//                });
+//                alert.show();
+//            }
+//        });
     }
     @Override
     protected void onStart() {
@@ -60,6 +107,7 @@ public class MainActivity1 extends AppCompatActivity {
 
         calculateCost();
 
+
     }
 
     private void calculateCost(){
@@ -67,8 +115,8 @@ public class MainActivity1 extends AppCompatActivity {
         for (int i = 0; i < subscriptionlist.size(); i++){
             total += Double.valueOf(subscriptionlist.get(i).getMonthlyCharge());
         }
-        String totalString = Double.toString(total);
-        totalCost.setText("Your Total Monthly Cost: " + totalString);
+        //String totalString = Double.toString(total);
+        totalCost.setText("Your Total Monthly Cost: $" + String.format("%.2f",total));
     }
 
     /**

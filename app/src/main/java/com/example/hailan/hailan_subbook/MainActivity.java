@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private ArrayList<Subscription> subscriptionlist;
-    private SubscriptionAdapter adapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,11 +46,11 @@ public class MainActivity extends AppCompatActivity {
         //setContentView(R.layout.activity_main);
         setContentView(R.layout.add_subscription);
         Button saveButton = (Button) findViewById(R.id.saveButtonID);
+        Button cancelButton = (Button) findViewById(R.id.cancelButtonID);
         nameOfSubscription = (EditText) findViewById(R.id.addName);
         dateOfSubscription = (EditText) findViewById(R.id.addDate);
         costOfSubscription = (EditText) findViewById(R.id.addCost);
         commentOfSubscription = (EditText) findViewById(R.id.addComment);
-        listOfSubscription = (ListView) findViewById(R.id.listView);
 
 
         dateOfSubscription.setHint("Click for date entry");
@@ -86,6 +86,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
         saveButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 setResult(RESULT_OK);
@@ -111,19 +118,13 @@ public class MainActivity extends AppCompatActivity {
                 if (allFilled == false) {
                     return;
                 }
-                /* Check validity of cost */
-                try {
-                    Double costInDouble = Double.valueOf(cost);
-                } catch (NumberFormatException e) {
-                    costOfSubscription.setHint("** Invalid");
-                    return;
-                }
 
+                Double costInDouble = Double.valueOf(cost);
+                cost = String.format("%.2f",costInDouble);
 
                 Subscription newSubscription = new Subscription(name, date, cost, comment);
                 subscriptionlist.add(newSubscription);
 
-                adapter.notifyDataSetChanged();
                 saveInFile();
 
                 nameOfSubscription.setText("");
@@ -141,9 +142,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         loadFromFile();
-
-        adapter = new SubscriptionAdapter(this, R.layout.list_subformat, subscriptionlist);
-        listOfSubscription.setAdapter(adapter);
 
     }
 

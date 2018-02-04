@@ -4,35 +4,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:scrollIndicators="right|end"
-    android:scrollbars="vertical"
+    android:focusable="true"
     android:focusableInTouchMode="true"
-    android:focusable="true">
-
-    <ListView
-        android:id="@+id/listView"
-        android:layout_width="368dp"
-        android:layout_height="128dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:scrollIndicators="right|end"
-        android:scrollbars="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    android:scrollIndicators="right|end"
+    android:scrollbars="vertical">
 
     <EditText
         android:id="@+id/addName"
         android:layout_width="0dp"
         android:layout_height="46dp"
+        android:layout_marginEnd="8dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:maxLength="20"
         android:textColorHint="#FF7F7F"
-        app:layout_constraintBaseline_toBaselineOf="@+id/namefield"
-        app:layout_constraintEnd_toEndOf="@+id/addDate" />
+        app:layout_constraintBottom_toTopOf="@+id/addDate"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/addDate"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/addDate"
@@ -42,8 +32,9 @@
         android:focusableInTouchMode="false"
         android:inputType="date"
         android:textColorHint="#FF7F7F"
-        app:layout_constraintBaseline_toBaselineOf="@+id/datefield"
-        app:layout_constraintEnd_toEndOf="@+id/addCost" />
+        app:layout_constraintBottom_toTopOf="@+id/addCost"
+        app:layout_constraintEnd_toEndOf="@+id/addName"
+        app:layout_constraintTop_toBottomOf="@+id/addName" />
 
     <EditText
         android:id="@+id/addCost"
@@ -52,32 +43,32 @@
         android:ems="10"
         android:inputType="numberDecimal"
         android:textColorHint="#FF7F7F"
-        app:layout_constraintBaseline_toBaselineOf="@+id/costfield"
-        app:layout_constraintEnd_toEndOf="@+id/addComment" />
+        app:layout_constraintBottom_toTopOf="@+id/addComment"
+        app:layout_constraintEnd_toEndOf="@+id/addDate"
+        app:layout_constraintTop_toBottomOf="@+id/addDate" />
 
     <EditText
         android:id="@+id/addComment"
         android:layout_width="0dp"
         android:layout_height="46dp"
-        android:layout_marginEnd="8dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:maxLength="30"
-        app:layout_constraintBaseline_toBaselineOf="@+id/commentfield"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintBottom_toTopOf="@+id/saveButtonID"
+        app:layout_constraintEnd_toEndOf="@+id/addCost"
+        app:layout_constraintTop_toBottomOf="@+id/addCost" />
 
     <TextView
         android:id="@+id/namefield"
         android:layout_width="wrap_content"
         android:layout_height="19dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="8dp"
         android:text="Name"
         android:textSize="18sp"
         app:layout_constraintEnd_toStartOf="@+id/addName"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/listView"
-        app:layout_constraintTop_toBottomOf="@+id/listView" />
+        app:layout_constraintHorizontal_bias="0.161"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/datefield"
@@ -94,10 +85,10 @@
     <TextView
         android:id="@+id/costfield"
         android:layout_width="wrap_content"
-        android:layout_height="19dp"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginTop="24dp"
-        android:text="Cost"
+        android:text="Monthly Cost ($)"
         android:textSize="18sp"
         app:layout_constraintEnd_toStartOf="@+id/addCost"
         app:layout_constraintHorizontal_bias="0.0"
@@ -121,28 +112,33 @@
         android:id="@+id/saveButtonID"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:text="Save"
-        app:layout_constraintBottom_toTopOf="@+id/cancelButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/addComment" />
 
     <Button
-        android:id="@+id/cancelButton"
+        android:id="@+id/cancelButtonID"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="CANCEL"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/saveButtonID"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/saveButtonID" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="20dp" />
 
 </android.support.constraint.ConstraintLayout>
