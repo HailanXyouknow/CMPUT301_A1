@@ -29,12 +29,13 @@ import java.util.ArrayList;
 public class MainActivity1 extends AppCompatActivity {
     private ListView listView;
     private TextView totalCost;
-    private Button addButton;
+    private TextView directions;
+
     private static final String FILENAME = "newfile.sav";
 
     private ArrayList<Subscription> subscriptionlist;
     private SubscriptionAdapter adapter;
-    private static final String TAG = "onCreate";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -43,8 +44,10 @@ public class MainActivity1 extends AppCompatActivity {
 
         listView = (ListView) findViewById(R.id.listviewID);
         totalCost = (TextView) findViewById(R.id.totalCostID);
-        addButton = (Button) findViewById(R.id.addButtonID);
+        directions = (TextView) findViewById(R.id.directionsID);
+        Button addButton = (Button) findViewById(R.id.addButtonID);
 
+        /* +Subscription button takes user to MainActivity.class */
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -52,9 +55,8 @@ public class MainActivity1 extends AppCompatActivity {
             }
         });
 
-        /**
-         * Following method is a revision of https://stackoverflow.com/a/5344958
-         */
+        /*Following method is a revision of https://stackoverflow.com/a/5344958 */
+        /* Long click for option to delete subscription */
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -69,34 +71,26 @@ public class MainActivity1 extends AppCompatActivity {
                         adapter.notifyDataSetChanged();
                         saveInFile();
                         calculateCost();
+                        setDirections();
                     }
                 });
                 alert.show();
-                return false;
+                return true;
             }
         });
 
-
-//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                AlertDialog.Builder alert = new AlertDialog.Builder(MainActivity1.this);
-//                alert.setTitle("DELETE");
-//                alert.setMessage("Are you sure you want to delete this subscription?");
-//                final int position = i;
-//                alert.setNegativeButton("CANCEL",null);
-//                alert.setPositiveButton("OK", new AlertDialog.OnClickListener() {
-//                    public void onClick(DialogInterface dialog, int which){
-//                        subscriptionlist.remove(position);
-//                        adapter.notifyDataSetChanged();
-//                        saveInFile();
-//                        calculateCost();
-//                    }
-//                });
-//                alert.show();
-//            }
-//        });
+        /* Short click to edit info */
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(getApplicationContext(), MainActivity3.class);
+                String pos = Integer.toString(i);
+                intent.putExtra("pos", pos);
+                startActivity(intent);
+            }
+        });
     }
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -106,22 +100,29 @@ public class MainActivity1 extends AppCompatActivity {
         listView.setAdapter(adapter);
 
         calculateCost();
-
-
+        setDirections();
     }
 
+    /* Gives user directions on usage */
+    private void setDirections(){
+        if(subscriptionlist.size() == 0){
+            directions.setText("Currently you have no subscriptions");
+        } else {
+            directions.setText("Click to edit a subscription \nClick and hold to delete a subscription");
+        }
+    }
+
+    /* Adds up total */
     private void calculateCost(){
         double total = 0;
         for (int i = 0; i < subscriptionlist.size(); i++){
             total += Double.valueOf(subscriptionlist.get(i).getMonthlyCharge());
         }
-        //String totalString = Double.toString(total);
-        totalCost.setText("Your Total Monthly Cost: $" + String.format("%.2f",total));
+        String totalString = "Your Total Monthly Cost: $" + String.format("%.2f",total);
+        totalCost.setText(totalString);
     }
 
-    /**
-     *  loadFromFile and saveInFile methods are from the lab tutorial - LonelyTwitterActivity
-     */
+    /*loadFromFile and saveInFile methods are from the lab tutorial - LonelyTwitterActivity */
     private void loadFromFile() {
 
         try {
@@ -136,13 +137,9 @@ public class MainActivity1 extends AppCompatActivity {
 
         } catch (FileNotFoundException e) {
             subscriptionlist = new ArrayList<Subscription>();
-        } catch (IOException e) {
-            e.printStackTrace();
         }
-
     }
 
-    /* Might be deleted later */
     private void saveInFile() {
         try {
             FileOutputStream fos = openFileOutput(FILENAME,
