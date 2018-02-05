@@ -55,7 +55,7 @@ public class MainActivity1 extends AppCompatActivity {
             }
         });
 
-        /*Following method is a revision of https://stackoverflow.com/a/5344958 */
+        /*Following method is a revision of https://stackoverflow.com/a/5344958, username: esharp*/
         /* Long click for option to delete subscription */
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override

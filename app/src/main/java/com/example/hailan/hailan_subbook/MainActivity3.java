@@ -56,8 +56,8 @@ public class MainActivity3 extends AppCompatActivity {
         dateOfSubscription.setHint("Click for date entry");
 
 
-        /* The following OnClickListener is a spinOff from http://abhiandroid.com/ui/datepicker */
-
+        /* The following OnClickListener is learnt from: http://abhiandroid.com/ui/datepicker, author: Abhishek Saini */
+        /* date picker */
         dateOfSubscription.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -65,7 +65,7 @@ public class MainActivity3 extends AppCompatActivity {
                 final Calendar c = Calendar.getInstance();
                 int yearPicked = c.get(Calendar.YEAR);
                 int monthPicked = c.get(Calendar.MONTH);
-                int dayPicked = c.get(Calendar.DAY_OF_MONTH);;
+                int dayPicked = c.get(Calendar.DAY_OF_MONTH);
 
                 datePickerDialog = new DatePickerDialog(MainActivity3.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
@@ -134,12 +134,6 @@ public class MainActivity3 extends AppCompatActivity {
 
                 saveInFile();
 
-                nameOfSubscription.setText("");
-                dateOfSubscription.setText("");
-                dateOfSubscription.setHint("Click for date entry");
-                costOfSubscription.setText("");
-                commentOfSubscription.setText("");
-
                 finish();
             }
         });
@@ -149,6 +143,12 @@ public class MainActivity3 extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         loadFromFile();
+        nameOfSubscription.setText("");
+        dateOfSubscription.setText("");
+        dateOfSubscription.setHint("Click for date entry");
+        costOfSubscription.setText("");
+        commentOfSubscription.setText("");
+
         /* Get data from MainActivity1 */
         Intent intent = getIntent();
         String pos = intent.getStringExtra("pos");

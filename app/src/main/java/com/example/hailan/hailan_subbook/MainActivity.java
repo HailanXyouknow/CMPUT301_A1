@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
         dateOfSubscription.setHint("Click for date entry");
 
-        /* The following OnClickListener is a spinOff from http://abhiandroid.com/ui/datepicker */
+        /* The following OnClickListener is a spinOff from http://abhiandroid.com/ui/datepicker, author: Abhishek Saini*/
         /* Date picker */
         dateOfSubscription.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -127,12 +127,6 @@ public class MainActivity extends AppCompatActivity {
 
                 saveInFile();
 
-                nameOfSubscription.setText("");
-                dateOfSubscription.setText("");
-                dateOfSubscription.setHint("Click for date entry");
-                costOfSubscription.setText("");
-                commentOfSubscription.setText("");
-
                 finish();
             }
         });
@@ -142,6 +136,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         loadFromFile();
+        nameOfSubscription.setText("");
+        dateOfSubscription.setText("");
+        dateOfSubscription.setHint("Click for date entry");
+        costOfSubscription.setText("");
+        commentOfSubscription.setText("");
     }
 
 

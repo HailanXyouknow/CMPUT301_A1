@@ -17,6 +17,7 @@ public class Subscription {
         this.comment = comment;
     }
 
+    /* getters and setters */
     public String getName() {
         return name;
     }
@@ -49,6 +50,7 @@ public class Subscription {
         this.comment = comment;
     }
 
+    /* The original format used in listview */
     @Override
     public String toString() {
         return "Subscription: " + name + '\n' +

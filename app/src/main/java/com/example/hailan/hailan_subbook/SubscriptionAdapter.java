@@ -25,6 +25,7 @@ public class SubscriptionAdapter extends ArrayAdapter{
         this.subscriptions = subscriptions;
     }
 
+    /* The following is learnt from Tim Buchalka's android course, Copyright © 2018 Udemy, Inc.*/
     @Override
     public int getCount() {
         return subscriptions.size();
