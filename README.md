@@ -1,7 +1,10 @@
-# CMPUT301_A1
+# CMPUT301 Assignment1 - SubBook:
 
-# FINAL VERSION of the First Assignment - SubBook
-# +Subscription button allows you to add a subscription
-# Click on a subscription to edit information for that particular subscription
-# Long click on a subscription for a delete option
+```sh
+# +Subscription button allows you to add a new subscription
+# Click on a subscription to edit the info for it
+# Long click on a subscription for option to delete it
+
+```
+
 
