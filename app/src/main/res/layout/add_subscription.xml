@@ -16,11 +16,10 @@
         android:inputType="textPersonName"
         android:maxLength="20"
         android:textColorHint="#FF7F7F"
-        app:layout_constraintBottom_toTopOf="@+id/addDate"
+        app:layout_constraintBaseline_toBaselineOf="@+id/namefield"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="@+id/addDate"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="@+id/addDate" />
 
     <EditText
         android:id="@+id/addDate"
@@ -30,9 +29,8 @@
         android:focusableInTouchMode="false"
         android:inputType="date"
         android:textColorHint="#FF7F7F"
-        app:layout_constraintBottom_toTopOf="@+id/addCost"
-        app:layout_constraintEnd_toEndOf="@+id/addName"
-        app:layout_constraintTop_toBottomOf="@+id/addName" />
+        app:layout_constraintBaseline_toBaselineOf="@+id/datefield"
+        app:layout_constraintEnd_toEndOf="@+id/addName" />
 
     <EditText
         android:id="@+id/addCost"
@@ -41,9 +39,8 @@
         android:ems="10"
         android:inputType="numberDecimal"
         android:textColorHint="#FF7F7F"
-        app:layout_constraintBottom_toTopOf="@+id/addComment"
-        app:layout_constraintEnd_toEndOf="@+id/addDate"
-        app:layout_constraintTop_toBottomOf="@+id/addDate" />
+        app:layout_constraintBaseline_toBaselineOf="@+id/costfield"
+        app:layout_constraintEnd_toEndOf="@+id/addDate" />
 
     <EditText
         android:id="@+id/addComment"
@@ -52,9 +49,8 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:maxLength="30"
-        app:layout_constraintBottom_toTopOf="@+id/saveButtonID"
-        app:layout_constraintEnd_toEndOf="@+id/addCost"
-        app:layout_constraintTop_toBottomOf="@+id/addCost" />
+        app:layout_constraintBaseline_toBaselineOf="@+id/commentfield"
+        app:layout_constraintEnd_toEndOf="@+id/addCost" />
 
     <TextView
         android:id="@+id/namefield"
@@ -110,13 +106,12 @@
         android:id="@+id/saveButtonID"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:text="Save"
-        app:layout_constraintBottom_toTopOf="@+id/cancelButtonID"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/addComment" />
 
@@ -124,19 +119,23 @@
         android:id="@+id/cancelButtonID"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:text="CANCEL"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/saveButtonID" />
+        app:layout_constraintTop_toBottomOf="@+id/saveButtonID"
+        app:layout_constraintVertical_bias="0.0" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_begin="20dp" />
+        app:layout_constraintGuide_begin="-2dp" />
 
 </android.support.constraint.ConstraintLayout>
